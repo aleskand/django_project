@@ -1,0 +1,59 @@
+{% extends "snp/base.html" %}
+{% block content %}
+{% load static %}
+<div class="container">
+<div class="row align-items-center justify-content-center">
+  <div class="col-lg-12 mb-4">
+      <div class="col-lg-12 mb-4">
+         <div class="card">
+<div class="card-header navbar-light bg-primary text-white">Annotations for SNP_{{snp_id}}</div>
+    <div class="card-body">
+        <table class="table table-striped table-hover text-center">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Type</th>
+                <th scope="col">Created</th>
+                <th scope="col">Author</th>
+                <th scope="col">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for a in annotations %}
+                <tr>
+                <td>Annotation {{forloop.counter}}</td>
+                <td>{{a.sort}}</td>
+                <td>{{a.an_date}}</td>
+                <td>{{a.author}}</td>
+                <td>{{a.value}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-12 mb-4">
+    <div class="col-lg-12 mb-4">
+       <div class="card">
+    <div class="card-header navbar-light bg-primary text-white">Add Annotation</div>
+    <div class="card-body">
+        <p>The annotation will be automatically added with today's date.</p>
+        <form method="POST" action="{% url 'annotation_details' snp_id %}">
+            {% csrf_token %}
+            <input type="hidden" name="snp" value="{{ snp.id }}">
+            <input type="hidden" name="an_date" value="{{ date.today }}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<div class="row align-items-center justify-content-center">
+    <a class="btn btn-primary btn col-2" href="{% url 'index' %}?page=1">Go Back</a>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "snp/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+    <div class="col-lg-12 mb-4">
+    <div class="card">
+    <div class="card-header navbar-light bg-primary text-white">
+        Select species
+    </div>
+    <div class="card-body justify-content-center">
+        <div class="row d-flex justify-content-center">
+            {% for specie in species_list %}  
+                <div class="col-md-2 text-center mx-auto">
+		            <a href="/snp/species/{{specie.id}}"><img src="{{specie.img_src.url}}" alt="{{ img.alt }}" class="image" width="200" height="150"></a>
+                    <p>{{specie.name}}</p>
+                </div>
+	        {% endfor %}
+        </div>
+    </div>
+    </div> 
+    </div>
+    </div>
+</div>
+    <div class="container">
+    <div class="row align-items-center justify-content-center">
+    <div class="col-lg-12 mb-4">
+    <div class="card">
+    <div class="card-header navbar-light bg-primary text-white">
+        SNP Search
+    </div>
+    <div class="card-body">
+        <form action="{% url 'index' %}" method="get">
+        <div class="form-group row row col-6">
+            <p>Please enter the chromosome number first, then : and the range for the positions.
+                <br>Example: <br>1:0-20
+            <br>Chromosome 1, position from 0 to 20.</p>
+
+            <label for="region" class="col-sm-2 col-form-label">Region</label>
+            <div class="col-sm-10">
+            <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Input coordinates" id="region" name="region">
+            <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">
+            <i class="fa fa-search-plus" style="color:black;"></i>
+            </button>
+            <button class="btn btn-outline-secondary" type="button">
+            <i class="fa fa-search-minus" style="color:black;"></i>
+            </button>
+        </div>
+    </div>
+    </div>
+    </div>                
+    <div class="form-group row col-6 mt-3">
+        <label class="col-sm-2 col-form-label">MAF</label>
+        <div class="col-sm-10">
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Min. value</span>
+        </div>
+            <input type="text" class="form-control" id="min_maf" name="min_maf">
+            <div class="input-group-prepend">
+            <span class="input-group-text">Max. value</span>
+        </div>
+            <input type="text" class="form-control"id="max_maf" name="max_maf">
+        </div>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button> 
+        </form>
+        </div>
+        </div> 
+      </div>
+    </div>
+      </div>
+      <div class="col-lg-12 mb-4">
+        <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <nav class="col-3">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'index' %}?page=1">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% block pagination %}
+                    {% for page_number in page_obj.paginator.get_elided_page_range %}
+                    {% if page_number == page_obj.paginator.ELLIPSIS %}
+                    {{page_number}}
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{% url 'index' %}?page={{page_number}}">
+                        {{page_number}}
+                    </a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% endblock %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'index' %}?page={{page_obj.paginator.num_pages}}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="col-9 d-flex justify-content-end">
+            <a href= "{% url 'export-csv' %}" ><button class="btn btn-primary d-flex align-items-center">Download</button></a></div>
+        </div>
+    </div>
+      <div class="col-lg-12 mb-4">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12">
+        {% if page_obj %}
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Chromosome</th>
+                <th scope="col">Position</th>
+                <th scope="col">REF allele</th>
+                <th scope="col">ALT allele</th>
+                <th scope="col">MAF</th>
+                <th scope="col">Annotation</th>
+                <th scope="col">Browser</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for item in page_obj %}
+              <tr>
+                  <td>{{ item.chromosome }}</td>
+                  <td>{{ item.coordinate }}</td>
+                  <td>{{ item.ref_allele }}</td>
+                  <td>{{ item.alter_allele }}</td>
+                  <td>{{ item.MAF }}</td>
+                  <td><a href="/snp/annotation/{{item.id}}" class="btn btn-primary">Details</a></td>
+                  <td><a href="https://pl.wikipedia.org/wiki/Chromosom_{{item.chromosome}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Show in browser</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

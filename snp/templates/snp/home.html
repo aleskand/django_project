@@ -1,0 +1,71 @@
+{% extends "snp/base.html" %}
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+    <div class="col-lg-12 mb-4">
+    <div class="card">
+      <div class="card-header navbar-light bg-primary text-white">
+        Welcome to SNP Atlas
+      </div>
+      <div class="card-body">
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elites, sed to eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Augue lacus viverra vitae congue eu consequat. Risus nec feugiat in fermentum. Nec nam aliquam sem et tortor. et netus et malesuada fames ac turpis egestas integer eget.
+            Ut placerat orci nulla pellentesque.  Gravida rutrum quisque non tellus orci ac. Amet luctus venenatis lectus magna. Morbi non arcurisus quis varius. 
+            Egestas congue quisque egestas diam in arcu. Ullamcorper malesuada proin libero nunc consequat interdum varius sit amet. Nulla aliquet enim tortor at. 
+            Cras pulvinar mattis nunc sed blandit libero volutpat. 
+            Aenean et tortor at risus viverra. Massa sed element tempus egestas sed. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. 
+            Cursus in hac habitasse platea dictumst quisque sagittis purus sit Massa placerat duis ultricies lacus sed turpis tincidunt id. 
+            Lobortis scelerisque fermentum dui faucibus in. In tellus integer feugiat scelerisque varius morbi enim nunc faucibus.<br><br>
+    
+            Pretium quam vulputate dignissim suspendisse in. Proin libero nunc consequat interdum. Eleifend me in nulla posuere. Tellus at urn condimentum mattis pellentesque id nibh tortor id. 
+            Malesuada nunc aka risus commodo viverra aecenas accumsan lacus aka. Amet cursus sit amet dictum sit amet justo donec.  
+            nim ut tellus elementum sagittis vitae et.  Eu sem integer vitae justo eget magna fermentum. 
+            Enim blandit volutpat maecenas volutpat blandit aliquam etiam. Tristique senectus et netus et. 
+            Tristique senectus et netus et malesuada fames.  Rutrum quisque non tellus orci ac auctor augue mauris.</p>
+      </div>
+    </div>
+    </div>
+    <div class="container">
+      <div class="row">
+    <div class="col-lg-6 mb-5">
+        <div class="card">
+            <div class="card-header navbar-light bg-primary text-white">
+                Basic statistics
+              </div>
+          <div class="card-body">
+            <p class="card-text">
+              <div class="container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Position</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr><td> Species </td><td>{{ species_count }}</td></tr>
+                      <tr><td> Samples </td><td>{{ samples_count }}</td></tr>
+                      <tr><td> SNPs </td><td>{{ snps_count }}</td></tr>
+                    </tbody>
+                </table>
+              </div>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-5">
+        <div class="card">
+            <div class="card-header navbar-light bg-primary text-white">
+                Charts
+              </div>
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <img src="{% static 'images/wykres.png' %}" alt="chart" width="450">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
